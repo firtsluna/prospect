@@ -1,158 +1,370 @@
-import React, { useState } from 'react';
-import { 
-  Users, 
-  Target, 
-  Zap, 
-  CheckCircle, 
-  ArrowRight,
-  Mail,
-  Building2,
-  User
-} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Bot, Brain, Cpu, MessageSquare, Users, Rocket, Mail, Github, Linkedin, Globe, Phone, Facebook } from 'lucide-react';
 
 function App() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    company: ''
-  });
+  const [language, setLanguage] = useState('fr');
+  const [isBlinking, setIsBlinking] = useState(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Merci de votre intérêt ! Nous vous contacterons bientôt.');
-    setFormData({ fullName: '', email: '', company: '' });
+  // Effet de clignotement
+  useEffect(() => {
+    const blinkInterval = setInterval(() => {
+      setIsBlinking(prev => !prev);
+    }, 800);
+    
+    return () => clearInterval(blinkInterval);
+  }, []);
+
+  // Contenu multilingue
+  const content = {
+    fr: {
+      callToAction: "Réservez un appel gratuitement",
+      nav: {
+        services: 'Services',
+        about: 'À Propos',
+        contact: 'Contact'
+      },
+      hero: {
+        title: 'Transformez Votre Entreprise avec',
+        highlight: ' l\'IA',
+        description: 'Nous créons des solutions intelligentes qui aident les entreprises à automatiser, innover et se développer grâce à une technologie d\'IA de pointe.',
+        cta: 'Commencer'
+      },
+      services: {
+        title: 'Nos Services',
+        items: [
+          {
+            title: 'Conseil en IA',
+            description: 'Conseils stratégiques sur la mise en œuvre de solutions d\'IA adaptées à vos besoins professionnels.'
+          },
+          {
+            title: 'Développement de Chatbots',
+            description: 'Chatbots IA personnalisés qui améliorent le service client et l\'engagement.'
+          },
+          {
+            title: 'Automatisation des Processus',
+            description: 'Solutions d\'automatisation intelligentes pour rationaliser vos opérations.'
+          }
+        ]
+      },
+      about: {
+        title: 'À Propos de Nous',
+        description: 'Nous sommes une équipe d\'experts en IA, de développeurs et de consultants passionnés par l\'aide aux entreprises à tirer parti de la puissance de l\'intelligence artificielle.',
+        stats: {
+          clients: '50+ Clients',
+          projects: '100+ Projets'
+        }
+      },
+      contact: {
+        title: 'Contactez-Nous',
+        namePlaceholder: 'Votre Nom',
+        emailPlaceholder: 'Votre Email',
+        messagePlaceholder: 'Votre Message',
+        submitButton: 'Envoyer le Message',
+        phone: {
+          senegal: '+221 77 300 43 36',
+          us: '+1 516 570 9695'
+        },
+        email: 'groupaibotagency@gmail.com'
+      },
+      footer: {
+        copyright: '© 2025 AI BOT Agency. Tous droits réservés.'
+      }
+    },
+    en: {
+      callToAction: "Book a free call",
+      nav: {
+        services: 'Services',
+        about: 'About',
+        contact: 'Contact'
+      },
+      hero: {
+        title: 'Transform Your Business with',
+        highlight: ' AI',
+        description: 'We create intelligent solutions that help businesses automate, innovate, and grow using cutting-edge AI technology.',
+        cta: 'Get Started'
+      },
+      services: {
+        title: 'Our Services',
+        items: [
+          {
+            title: 'AI Consulting',
+            description: 'Strategic guidance on implementing AI solutions for your business needs.'
+          },
+          {
+            title: 'Chatbot Development',
+            description: 'Custom AI chatbots that enhance customer service and engagement.'
+          },
+          {
+            title: 'Process Automation',
+            description: 'Intelligent automation solutions to streamline your operations.'
+          }
+        ]
+      },
+      about: {
+        title: 'About Us',
+        description: 'We are a team of AI experts, developers, and consultants passionate about helping businesses leverage the power of artificial intelligence.',
+        stats: {
+          clients: '50+ Clients',
+          projects: '100+ Projects'
+        }
+      },
+      contact: {
+        title: 'Get in Touch',
+        namePlaceholder: 'Your Name',
+        emailPlaceholder: 'Your Email',
+        messagePlaceholder: 'Your Message',
+        submitButton: 'Send Message',
+        phone: {
+          senegal: '+221 77 300 43 36',
+          us: '+1 516 570 9695'
+        },
+        email: 'groupaibotagency@gmail.com'
+      },
+      footer: {
+        copyright: '© 2025 AI BOT Agency. All rights reserved.'
+      }
+    }
   };
 
+  // Obtenir le contenu actuel en fonction de la langue
+  const t = content[language];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 to-blue-950">
-      {/* Section Hero */}
-      <div className="container mx-auto px-4 pt-20 pb-32">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-6xl font-bold text-white mb-2">
-            Les Prospects
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      {/* Bannière d'appel clignotante */}
+      <div className="bg-blue-600 w-full py-2 text-center">
+        <a 
+          href="https://calendar.app.google/1NrjtvskUVfzdrbJ6" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className={`inline-flex items-center transition-all duration-300 ${isBlinking ? 'opacity-100 scale-105' : 'opacity-80'}`}
+        >
+          <Phone className="w-5 h-5 mr-2" />
+          <span className="font-semibold">{t.callToAction}</span>
+        </a>
+      </div>
+
+      {/* Header/Navigation */}
+      <nav className="sticky top-0 w-full bg-gray-900/80 backdrop-blur-sm z-50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <img 
+                src="/api/placeholder/40/40" 
+                alt="AI Brain Logo" 
+                className="w-10 h-10 rounded-full"
+              />
+              <span className="text-xl font-bold">AI BOT Agency</span>
+            </div>
+            <div className="hidden md:flex space-x-8">
+              <a href="#services" className="hover:text-blue-500 transition">{t.nav.services}</a>
+              <a href="#about" className="hover:text-blue-500 transition">{t.nav.about}</a>
+              <a href="#contact" className="hover:text-blue-500 transition">{t.nav.contact}</a>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Globe className="text-blue-500 w-5 h-5" />
+              <select 
+                value={language} 
+                onChange={(e) => setLanguage(e.target.value)}
+                className="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-sm"
+              >
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-24 pb-20 px-6">
+        <div className="container mx-auto text-center">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            {t.hero.title}
+            <span className="text-blue-500">{t.hero.highlight}</span>
           </h1>
-          <p className="text-2xl text-gray-300 mb-8">La plateforme de génération de leads B2B</p>
-          <p className="text-xl text-gray-400 mb-12">
-            Accédez à une plateforme puissante pour trouver et connecter avec vos clients idéaux. 
-            Commencez à développer votre entreprise dès aujourd'hui.
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            {t.hero.description}
           </p>
-          
-          {/* Formulaire de Prospect */}
-          <div className="bg-gray-900/80 backdrop-blur-sm p-8 rounded-xl shadow-2xl max-w-md mx-auto border border-gray-800">
-            <h2 className="text-2xl font-semibold mb-6 text-white">Commencez Maintenant</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Nom Complet"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                    className="pl-10 w-full p-3 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#contact" className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold transition">
+              {t.hero.cta}
+            </a>
+            <a 
+              href="https://calendar.app.google/1NrjtvskUVfzdrbJ6" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`inline-flex items-center bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 ${isBlinking ? 'opacity-100 scale-105' : 'opacity-80'}`}
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              <span>{t.callToAction}</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-20 px-6 bg-gray-800/50">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-16">{t.services.title}</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <ServiceCard
+              icon={<Brain className="w-12 h-12 text-blue-500" />}
+              title={t.services.items[0].title}
+              description={t.services.items[0].description}
+            />
+            <ServiceCard
+              icon={<MessageSquare className="w-12 h-12 text-blue-500" />}
+              title={t.services.items[1].title}
+              description={t.services.items[1].description}
+            />
+            <ServiceCard
+              icon={<Cpu className="w-12 h-12 text-blue-500" />}
+              title={t.services.items[2].title}
+              description={t.services.items[2].description}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1">
+              <img
+                src="/api/placeholder/800/600"
+                alt="Team collaboration"
+                className="rounded-lg shadow-xl"
+              />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-4xl font-bold mb-6">{t.about.title}</h2>
+              <p className="text-gray-300 mb-6">
+                {t.about.description}
+              </p>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center">
+                  <Users className="w-6 h-6 text-blue-500 mr-2" />
+                  <span>{t.about.stats.clients}</span>
+                </div>
+                <div className="flex items-center">
+                  <Rocket className="w-6 h-6 text-blue-500 mr-2" />
+                  <span>{t.about.stats.projects}</span>
                 </div>
               </div>
-              <div>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                  <input
-                    type="email"
-                    placeholder="Email Professionnel"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="pl-10 w-full p-3 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-6 bg-gray-800/50">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-16">{t.contact.title}</h2>
+          <div className="max-w-2xl mx-auto">
+            {/* Contact Information */}
+            <div className="mb-10 bg-gray-700/50 p-6 rounded-lg">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">Email</h3>
+                  <div className="flex items-center">
+                    <Mail className="w-5 h-5 text-blue-500 mr-2" />
+                    <a href={`mailto:${t.contact.email}`} className="text-gray-300 hover:text-blue-500 transition">
+                      {t.contact.email}
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">Téléphone</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center">
+                      <Phone className="w-5 h-5 text-blue-500 mr-2" />
+                      <a href={`tel:${t.contact.phone.senegal.replace(/\s+/g, '')}`} className="text-gray-300 hover:text-blue-500 transition">
+                        {t.contact.phone.senegal} (Sénégal)
+                      </a>
+                    </div>
+                    <div className="flex items-center">
+                      <Phone className="w-5 h-5 text-blue-500 mr-2" />
+                      <a href={`tel:${t.contact.phone.us.replace(/\s+/g, '')}`} className="text-gray-300 hover:text-blue-500 transition">
+                        {t.contact.phone.us} (US)
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="relative">
-                  <Building2 className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Nom de l'Entreprise"
-                    value={formData.company}
-                    onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    className="pl-10 w-full p-3 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                </div>
-              </div>
+            </div>
+            
+            {/* Contact Form */}
+            <form className="space-y-6">
+              <input
+                type="text"
+                placeholder={t.contact.namePlaceholder}
+                className="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <input
+                type="email"
+                placeholder={t.contact.emailPlaceholder}
+                className="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <textarea
+                placeholder={t.contact.messagePlaceholder}
+                rows={4}
+                className="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ></textarea>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold transition"
               >
-                Commencer <ArrowRight className="h-5 w-5" />
+                {t.contact.submitButton}
               </button>
             </form>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Section Fonctionnalités */}
-      <div className="bg-gray-950 py-24">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center">
-              <div className="bg-gray-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-700 shadow-lg">
-                <Target className="h-8 w-8 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4 text-white">Prospects Ciblés</h3>
-              <p className="text-gray-400">Trouvez exactement qui vous cherchez avec nos options de ciblage avancées.</p>
+      {/* Footer */}
+      <footer className="bg-gray-900 py-12 px-6">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <img 
+                src="/api/placeholder/24/24" 
+                alt="AI Brain Logo" 
+                className="w-6 h-6 rounded-full"
+              />
+              <span className="text-lg font-bold">AI BOT Agency</span>
             </div>
-            <div className="text-center">
-              <div className="bg-gray-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-700 shadow-lg">
-                <Users className="h-8 w-8 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4 text-white">Contacts Vérifiés</h3>
-              <p className="text-gray-400">Accédez à des contacts professionnels vérifiés avec des informations précises.</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-gray-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-700 shadow-lg">
-                <Zap className="h-8 w-8 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4 text-white">Accès Instantané</h3>
-              <p className="text-gray-400">Obtenez un accès immédiat à notre base de données de prospects.</p>
+            <div className="flex space-x-6">
+              <a href={`mailto:${t.contact.email}`} className="text-gray-400 hover:text-white transition">
+                <Mail className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition">
+                <Github className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition">
+                <Linkedin className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition">
+                <Facebook className="w-6 h-6" />
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Section Avantages */}
-      <div className="bg-gray-900 py-24">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">Pourquoi Choisir Notre Plateforme ?</h2>
-          <div className="max-w-3xl mx-auto space-y-6">
-            {[
-              'Accès à des millions de contacts professionnels vérifiés',
-              'Capacités de recherche et de filtrage avancées',
-              'Export des prospects en format CSV ou Excel',
-              'Mises à jour régulières de la base de données',
-              'Interface facile à utiliser',
-              'Informations détaillées sur les entreprises'
-            ].map((benefit, index) => (
-              <div key={index} className="flex items-center gap-4 bg-gray-800/50 p-4 rounded-lg shadow-lg border border-gray-700">
-                <CheckCircle className="h-6 w-6 text-blue-400 flex-shrink-0" />
-                <span className="text-gray-300">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Pied de page */}
-      <footer className="bg-gray-950 text-gray-400 py-12 border-t border-gray-800">
-        <div className="container mx-auto px-4 text-center">
-          <p className="mb-4">© 2024 Les Prospects. Tous droits réservés.</p>
-          <div className="flex justify-center gap-6">
-            <a href="#" className="hover:text-blue-400 transition-colors">Conditions</a>
-            <a href="#" className="hover:text-blue-400 transition-colors">Confidentialité</a>
-            <a href="#" className="hover:text-blue-400 transition-colors">Contact</a>
+          <div className="mt-8 text-center text-gray-400">
+            <p>{t.footer.copyright}</p>
           </div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function ServiceCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
+  return (
+    <div className="bg-gray-700/50 p-8 rounded-lg hover:transform hover:-translate-y-1 transition duration-300">
+      <div className="mb-4">{icon}</div>
+      <h3 className="text-xl font-bold mb-3">{title}</h3>
+      <p className="text-gray-300">{description}</p>
     </div>
   );
 }
